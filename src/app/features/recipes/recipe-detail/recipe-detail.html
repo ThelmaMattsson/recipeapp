@@ -1,0 +1,73 @@
+<section class="recipe-detail">
+  @if (recipe(); as recipe) {
+    <div class="recipe-container">
+      <div class="recipe-detail__image-wrapper">
+        <img class="recipe-detail__image" [src]="recipe.imageUrl" [alt]="recipe.title" />
+      </div>
+
+      <h1 class="m-0">{{ recipe.title }}</h1>
+
+      <div class="recipedetails__meta-data">
+        <span>
+          <i class="fa-regular fa-clock"></i>
+          {{ recipe.cookingTime }} min
+        </span>
+
+        <span>
+          <i class="fa-solid fa-user-group"></i>
+          {{ recipe.servings }} portioner
+        </span>
+      </div>
+
+      <div class="recipedetails__h2">
+        <h2 [class.h2-active]="showIngredients()" (click)="ingredientsClicked($event)">
+          Ingredienser
+        </h2>
+        <h2 [class.h2-active]="showInstructions()" (click)="instructionsClicked($event)">
+          Instruktioner
+        </h2>
+      </div>
+
+      @if (showIngredients() === true) {
+        <ul>
+          @for (ingredient of recipe.ingredients; track ingredient.name) {
+            <li>
+              {{ ingredient.amount }}
+              {{ ingredient.unit }}
+              {{ ingredient.name }}
+            </li>
+          }
+        </ul>
+      } @else if (showInstructions() === true) {
+        <ol>
+          @for (instruction of recipe.instructions; track $index) {
+            <li>
+              {{ instruction }}
+            </li>
+          }
+        </ol>
+      }
+
+      @if (errorMessage()) {
+        <p class="form-error" role="alert">{{ errorMessage() }}</p>
+      }
+
+      <button class="button-primary" [routerLink]="['/recipes', recipe.id, 'edit']">
+        <i class="fa-solid fa-pen"></i>
+        Edit recipe
+      </button>
+
+      <button
+        class="button-danger"
+        type="button"
+        [disabled]="isDeleting()"
+        (click)="deleteRecipe(recipe.id)"
+      >
+        <i class="fa-solid fa-trash"></i>
+        {{ isDeleting() ? 'Deleting...' : 'Delete recipe' }}
+      </button>
+    </div>
+  } @else {
+    <p>Laddar recept...</p>
+  }
+</section>

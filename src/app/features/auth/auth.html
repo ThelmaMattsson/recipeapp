@@ -1,0 +1,72 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-7 col-lg-5">
+      <div class="card shadow-sm border-0 p-4">
+        <h1 class="h3 text-center mb-4">
+          {{ isRegisterMode() ? 'Skapa konto' : 'Logga in' }}
+        </h1>
+
+        <form (ngSubmit)="submit()" #authForm="ngForm">
+          <div class="mb-3">
+            <label for="email" class="form-label">E-post</label>
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              name="email"
+              [ngModel]="email()"
+              (ngModelChange)="email.set($event)"
+              required
+              email
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Lösenord</label>
+            <input
+              id="password"
+              type="password"
+              class="form-control"
+              name="password"
+              [ngModel]="password()"
+              (ngModelChange)="password.set($event)"
+              required
+              minlength="6"
+              [autocomplete]="isRegisterMode() ? 'new-password' : 'current-password'"
+            />
+            <small class="text-muted"> Minst 6 tecken. </small>
+          </div>
+
+          @if (errorMessage()) {
+            <div class="alert alert-danger">
+              {{ errorMessage() }}
+            </div>
+          }
+
+          @if (successMessage()) {
+            <div class="alert alert-success">
+              {{ successMessage() }}
+            </div>
+          }
+
+          <button
+            type="submit"
+            class="btn btn-primary w-100"
+            [disabled]="authForm.invalid || isLoading()"
+          >
+            {{ isLoading() ? 'Vänta...' : isRegisterMode() ? 'Skapa konto' : 'Logga in' }}
+          </button>
+        </form>
+
+        <p class="text-center mt-4 mb-0">
+          {{ isRegisterMode() ? 'Har du redan ett konto?' : 'Saknar du konto?' }}
+
+          <button type="button" class="btn btn-link p-0" (click)="toggleMode()">
+            {{ isRegisterMode() ? 'Logga in' : 'Skapa konto' }}
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

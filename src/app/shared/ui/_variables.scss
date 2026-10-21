@@ -1,0 +1,70 @@
+:root {
+  /* Colors */
+  --color-primary: #a26769;
+  --color-primary-dark: #7d292e;
+  --color-primary-light: #d5b9b2;
+  --color-secondary: #d5b9b2;
+  --color-background: #ebe1d7;
+  --color-surface: #f4eee8;
+  --color-text: #0e0d0d;
+  --color-text-muted: #686564;
+  --color-border: #e5ddd4;
+  --color-input-border: #bbbaba;
+  --color-success: #537548;
+  --color-danger: #d6524b;
+
+  /* Spacing */
+  --spacing-xxs: 2px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(63, 56, 52, 0.08);
+  --shadow-md: 0 4px 12px rgba(63, 56, 52, 0.1);
+
+  /* Typography */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+}
+
+.button-secondary {
+  border-radius: var(--radius-lg);
+  background-color: var(--color-secondary);
+  color: #ffffff;
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-sm) var(--spacing-sm);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: var(--font-size-sm);
+}
+
+.button-primary {
+  border-radius: var(--radius-lg);
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-sm) var(--spacing-sm);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: var(--font-size-sm);
+}
+
+.button-remove {
+  border: none;
+  background-color: transparent;
+  color: var(--color-danger);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: var(--font-size-xs);
+}

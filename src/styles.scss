@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+@use './app/shared/ui/variables';
+@use 'bootstrap/scss/bootstrap';
+
+* {
+  font-family: 'Instrument Serif', serif;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}

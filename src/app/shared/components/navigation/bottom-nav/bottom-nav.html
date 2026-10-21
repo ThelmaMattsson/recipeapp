@@ -1,0 +1,26 @@
+<nav class="bottom-nav">
+  <a
+    routerLink="/"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="nav-item"
+  >
+    <i class="fa-solid fa-house nav-icon"></i>
+  </a>
+
+  <a routerLink="/recipes" routerLinkActive="active" class="nav-item">
+    <i class="fa-solid fa-magnifying-glass nav-icon"></i>
+  </a>
+
+  <a routerLink="/recipes/new" class="add-button">
+    <i class="fa-solid fa-plus nav-icon"></i>
+  </a>
+
+  <a routerLink="/collections" routerLinkActive="active" class="nav-item">
+    <i class="fa-solid fa-book nav-icon"></i>
+  </a>
+
+  <a routerLink="/profile" routerLinkActive="active" class="nav-item">
+    <i class="fa-solid fa-user nav-icon"></i>
+  </a>
+</nav>

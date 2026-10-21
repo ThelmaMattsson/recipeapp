@@ -1,0 +1,191 @@
+<div class="recipe-form">
+  <div class="recipe-form__header">
+    <h1>
+      {{ isEditMode() ? 'Edit recipe' : 'New recipe' }}
+    </h1>
+
+    <p>
+      {{
+        isEditMode()
+          ? 'Update your recipe.'
+          : 'Create a new recipe! It can be modified at any time.'
+      }}
+    </p>
+  </div>
+
+  <form [formGroup]="recipeForm" (ngSubmit)="submit()">
+    <!-- Grundinformation -->
+
+    <section class="recipe-form__section">
+      <h2>Overview</h2>
+
+      <div class="form-group required">
+        <label for="title">Title</label>
+
+        <input id="title" type="text" formControlName="title" />
+
+        @if (recipeForm.controls.title.invalid && recipeForm.controls.title.touched) {
+          <small>Title is required.</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="image">Picture</label>
+
+        <div class="image-upload">
+          @if (imagePreview()) {
+            <div class="image-upload__preview">
+              <img [src]="imagePreview()" alt="Selected recipe image" />
+
+              <button type="button" class="image-upload__change" (click)="imageInput.click()">
+                <i class="fa-solid fa-camera"></i>
+                Change picture
+              </button>
+            </div>
+          } @else {
+            <button type="button" class="image-upload__empty" (click)="imageInput.click()">
+              <i class="fa-solid fa-camera"></i>
+              <span>Add a picture</span>
+              <small>Click to choose an image</small>
+            </button>
+          }
+
+          <input
+            #imageInput
+            id="image"
+            type="file"
+            accept="image/*"
+            hidden
+            (change)="onImageSelected($event)"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cookingTime">Cooking time (minutes)</label>
+
+        <input id="cookingTime" type="number" formControlName="cookingTime" />
+      </div>
+
+      <div class="form-group">
+        <label for="servings">Servings</label>
+
+        <input id="servings" type="number" formControlName="servings" />
+      </div>
+    </section>
+
+    <!-- Tags -->
+    <section class="recipe-form__section">
+      <h2>Description</h2>
+      <div class="form-group">
+        <label for="description">Description</label>
+
+        <textarea
+          id="description"
+          formControlName="description"
+          rows="4"
+          placeholder="This recipe was passed down from my grandma..."
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+
+        <select id="category" formControlName="category">
+          <option disabled value="">Category</option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Lunch">Lunch</option>
+          <option value="Dinner">Dinner</option>
+          <option value="Baking">Baking</option>
+          <option value="Dessert">Dessert</option>
+          <option value="Drink">Drink</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div formArrayName="tags">
+        @for (tag of tags.controls; track tag) {
+          <div class="form-array-row">
+            <input type="text" [formControlName]="$index" placeholder="Vegetarian" />
+
+            <button class="button-remove" type="button" (click)="removeTag($index)">
+              <i class="fa-solid fa-x"></i>
+            </button>
+          </div>
+        }
+      </div>
+
+      <button class="button-primary" type="button" (click)="addTag()">+ Add tag</button>
+    </section>
+
+    <!-- Tid och portioner -->
+
+    <!-- Ingredienser -->
+
+    <section class="recipe-form__section">
+      <h2>Ingredients</h2>
+
+      <div formArrayName="ingredients">
+        @for (ingredient of ingredients.controls; track ingredient) {
+          <div class="ingredient-row" [formGroupName]="$index">
+            <input type="text" formControlName="amount" placeholder="Amount" />
+
+            <input type="text" formControlName="unit" placeholder="Unit" />
+
+            <input type="text" formControlName="name" placeholder="Product" />
+
+            <button class="button-remove" type="button" (click)="removeIngredient($index)">
+              <i class="fa-solid fa-x"></i>
+            </button>
+          </div>
+        }
+      </div>
+
+      <button class="button-primary" type="button" (click)="addIngredient()">
+        + Add ingredient
+      </button>
+    </section>
+
+    <!-- Instruktioner -->
+
+    <section class="recipe-form__section">
+      <h2>Instructions</h2>
+
+      <div formArrayName="instructions">
+        @for (instruction of instructions.controls; track instruction) {
+          <div class="instruction-row">
+            <span>{{ $index + 1 }}</span>
+
+            <textarea
+              [formControlName]="$index"
+              rows="2"
+              placeholder="Describe the next step..."
+            ></textarea>
+
+            <button class="button-remove" type="button" (click)="removeInstruction($index)">
+              <i class="fa-solid fa-x"></i>
+            </button>
+          </div>
+        }
+      </div>
+
+      <button class="button-primary" type="button" (click)="addInstruction()">
+        + Add instruction
+      </button>
+    </section>
+
+    <!-- Actions -->
+
+    @if (errorMessage()) {
+      <div class="form-error" role="alert">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <div class="recipe-form__actions">
+      <button class="button-secondary" type="button" (click)="cancel()">Cancel</button>
+
+      <button class="button-primary" type="submit" [disabled]="isSaving()">
+        {{ isSaving() ? 'Saving...' : isEditMode() ? 'Save changes' : 'Save recipe' }}
+      </button>
+    </div>
+  </form>
+</div>

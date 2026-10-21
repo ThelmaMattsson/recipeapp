@@ -1,0 +1,39 @@
+<article class="recipe-card" [routerLink]="['/recipes', recipe.id]">
+  <div class="recipe-card__image-wrapper">
+    <img
+      class="recipe-card__image"
+      [src]="recipe.imageUrl || 'assets/images/recipe-placeholder.jpg'"
+      [alt]="recipe.title"
+    />
+  </div>
+
+  <div class="recipe-card__content">
+    <h2 class="recipe-card__title">
+      {{ recipe.title }}
+    </h2>
+
+    <p class="recipe-card__description">
+      {{ recipe.description }}
+    </p>
+
+    <div class="recipe-card__meta">
+      <span>
+        <i class="fa-regular fa-clock"></i>
+        {{ recipe.cookingTime }} min
+      </span>
+
+      <span>
+        <i class="fa-solid fa-user-group"></i>
+        {{ recipe.servings }} portioner
+      </span>
+    </div>
+
+    <div class="recipe-card__tags">
+      @for (tag of recipe.tags; track tag) {
+        <span class="recipe-card__tag">
+          {{ tag }}
+        </span>
+      }
+    </div>
+  </div>
+</article>

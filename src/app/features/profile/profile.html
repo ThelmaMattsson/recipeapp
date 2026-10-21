@@ -1,0 +1,34 @@
+<div class="container py-4">
+  <h1 class="mb-4">Min profil</h1>
+
+  @if (authService.user(); as user) {
+    <div class="card border-0 shadow-sm p-4">
+      <div class="d-flex align-items-center gap-3 mb-4">
+        <div
+          class="rounded-circle bg-light d-flex align-items-center justify-content-center"
+          style="width: 64px; height: 64px"
+        >
+          <i class="fa-solid fa-user fa-2x"></i>
+        </div>
+
+        <div>
+          <h2 class="h5 mb-1">Mitt konto</h2>
+          <p class="text-muted mb-0">{{ user.email }}</p>
+        </div>
+      </div>
+
+      <hr />
+
+      <button type="button" class="btn btn-outline-danger w-100" (click)="logOut()">
+        <i class="fa-solid fa-right-from-bracket me-2"></i>
+        Logga ut
+      </button>
+    </div>
+  } @else {
+    <div class="card border-0 shadow-sm p-4">
+      <p>Du är inte inloggad.</p>
+
+      <a routerLink="/auth" class="btn btn-primary"> Logga in </a>
+    </div>
+  }
+</div>

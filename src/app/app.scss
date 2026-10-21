@@ -1,0 +1,12 @@
+:host {
+  --bottom-nav-height: 72px;
+
+  display: block;
+  padding-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 768px) {
+  :host {
+    padding-bottom: 0;
+  }
+}

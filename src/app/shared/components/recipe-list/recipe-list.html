@@ -1,0 +1,24 @@
+<section class="recipe-list">
+  <div class="container">
+    <p>Antal recept: {{ recipes.length }}</p>
+    <header class="recipe-list__header">
+      <div>
+        <p class="recipe-list__eyebrow">Recept</p>
+        <h1 class="recipe-list__title">Mina recept</h1>
+      </div>
+
+      <a routerLink="/recipes/new" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i>
+        Nytt recept
+      </a>
+    </header>
+
+    <div class="row g-4">
+      @for (recipe of recipes; track recipe.id) {
+        <div class="col-12 col-md-6 col-lg-4">
+          <app-recipe-card [recipe]="recipe" />
+        </div>
+      }
+    </div>
+  </div>
+</section>
