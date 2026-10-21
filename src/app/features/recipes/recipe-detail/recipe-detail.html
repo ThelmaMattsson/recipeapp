@@ -52,12 +52,11 @@
         <p class="form-error" role="alert">{{ errorMessage() }}</p>
       }
 
-      <button class="button-primary" [routerLink]="['/recipes', recipe.id, 'edit']">
-        <i class="fa-solid fa-pen"></i>
-        Edit recipe
-      </button>
-
       @if (canManageRecipe()) {
+        <button class="button-primary" [routerLink]="['/recipes', recipe.id, 'edit']">
+          <i class="fa-solid fa-pen"></i>
+          Edit recipe
+        </button>
         <button
           class="button-danger"
           type="button"
