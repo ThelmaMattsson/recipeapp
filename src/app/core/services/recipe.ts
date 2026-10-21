@@ -87,7 +87,7 @@ export class RecipeService {
     );
   }
 
-  async createRecipe(recipe: Omit<Recipe, 'id' | 'createdAt'>): Promise<string> {
+  async createRecipe(recipe: Omit<Recipe, 'id' | 'createdAt' | 'userId'>): Promise<string> {
     const supabase = this.supabase.client;
 
     //Check that user is logged in
@@ -177,7 +177,10 @@ export class RecipeService {
     }
   }
 
-  async updateRecipe(id: string, recipe: Omit<Recipe, 'id' | 'createdAt'>): Promise<void> {
+  async updateRecipe(
+    id: string,
+    recipe: Omit<Recipe, 'id' | 'createdAt' | 'userId'>,
+  ): Promise<void> {
     const supabase = this.supabase.client;
 
     const { data: userData, error: userError } = await supabase.auth.getUser();
