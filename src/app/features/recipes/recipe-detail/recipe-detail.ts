@@ -1,7 +1,7 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { of, switchMap } from 'rxjs';
-
+import { AuthService } from '../../../core/services/auth';
 import { Recipe } from '../../../core/models/recipe.model';
 import { RecipeService } from '../../../core/services/recipe';
 
@@ -19,6 +19,7 @@ export class RecipeDetail implements OnInit {
   showInstructions = signal<boolean>(false);
   isDeleting = signal(false);
   errorMessage = signal('');
+  private authService = inject(AuthService);
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +60,13 @@ export class RecipeDetail implements OnInit {
     this.showInstructions.set(false);
     this.showIngredients.set(true);
   }
+
+  canManageRecipe = computed(() => {
+    const recipe = this.recipe();
+    const user = this.authService.user();
+
+    return !!user && !!recipe && recipe.userId === user.id;
+  });
 
   async deleteRecipe(id: string): Promise<void> {
     const confirmed = confirm(

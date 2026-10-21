@@ -6,6 +6,7 @@ import { UntypedFormGroup } from '@angular/forms';
 
 interface SupabaseRecipeRow {
   id: string;
+  user_id: string | null;
   title: string;
   description: string | null;
   image_url: string | null;
@@ -326,6 +327,7 @@ export class RecipeService {
   private mapRecipe(row: SupabaseRecipeRow): Recipe {
     return {
       id: row.id,
+      userId: row.user_id ?? null,
       title: row.title,
       description: row.description ?? '',
       imageUrl: row.image_url ?? undefined,

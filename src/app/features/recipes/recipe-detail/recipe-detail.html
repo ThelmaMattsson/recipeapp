@@ -57,15 +57,17 @@
         Edit recipe
       </button>
 
-      <button
-        class="button-danger"
-        type="button"
-        [disabled]="isDeleting()"
-        (click)="deleteRecipe(recipe.id)"
-      >
-        <i class="fa-solid fa-trash"></i>
-        {{ isDeleting() ? 'Deleting...' : 'Delete recipe' }}
-      </button>
+      @if (canManageRecipe()) {
+        <button
+          class="button-danger"
+          type="button"
+          [disabled]="isDeleting()"
+          (click)="deleteRecipe(recipe.id)"
+        >
+          <i class="fa-solid fa-trash"></i>
+          {{ isDeleting() ? 'Deleting...' : 'Delete recipe' }}
+        </button>
+      }
     </div>
   } @else {
     <p>Laddar recept...</p>

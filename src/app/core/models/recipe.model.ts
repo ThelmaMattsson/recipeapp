@@ -6,6 +6,7 @@ export interface Ingredient {
 
 export interface Recipe {
   id: string;
+  userId: string | null;
   title: string;
   description: string;
   imageUrl?: string;
