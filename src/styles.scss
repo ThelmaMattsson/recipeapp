@@ -6,6 +6,23 @@
 }
 
 body {
-  background-color: var(--color-background);
+  background: var(--color-background);
   color: var(--color-text);
+}
+
+.dropdown-item-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  text-wrap: nowrap;
+  padding: 0px;
+
+  &:hover {
+    background: var(--color-surface-hover);
+  }
 }

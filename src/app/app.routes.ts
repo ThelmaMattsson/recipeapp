@@ -6,6 +6,7 @@ import { RecipeDetail } from './features/recipes/recipe-detail/recipe-detail';
 import { RecipeForm } from './features/recipes/recipe-form/recipe-form';
 import { Collections } from './features/collections/collections';
 import { Profile } from './features/profile/profile';
+import { SearchPage } from './features/search-page/search-page';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,10 @@ export const routes: Routes = [
   {
     path: 'recipes/:id/edit',
     component: RecipeForm,
+  },
+  {
+    path: 'search',
+    component: SearchPage,
   },
   {
     path: 'collections',

@@ -1,34 +1,152 @@
-<div class="container py-4">
-  <h1 class="mb-4">Min profil</h1>
-
+<div>
   @if (authService.user(); as user) {
-    <div class="card border-0 shadow-sm p-4">
-      <div class="d-flex align-items-center gap-3 mb-4">
-        <div
-          class="rounded-circle bg-light d-flex align-items-center justify-content-center"
-          style="width: 64px; height: 64px"
-        >
-          <i class="fa-solid fa-user fa-2x"></i>
+    @if (isLoading()) {
+      <p>Loading profile...</p>
+    } @else {
+      <div class="profile-container">
+        <section class="action-buttons">
+          @if (profile()?.username) {
+            <p class="username-display">@{{ profile()?.username }}</p>
+          }
+          <app-dropdown-menu class="action-button">
+            <button
+              dropdown-item
+              type="button"
+              class="dropdown-item-button"
+              (click)="startEditing()"
+            >
+              <i class="fa-solid fa-pen me-2"></i>
+              Edit profile
+            </button>
+            <button dropdown-item type="button" class="dropdown-item-button" (click)="logOut()">
+              <i class="fa-solid fa-right-from-bracket me-2"></i>
+              Log out
+            </button>
+          </app-dropdown-menu>
+        </section>
+
+        <div class="profile-metadata">
+          <div
+            class="rounded-circle bg-light d-flex align-items-center justify-content-center"
+            style="width: 64px; height: 64px; border: 1px solid var(--color-border)"
+          >
+            <i class="fa-solid fa-user fa-2x"></i>
+          </div>
+
+          <div>
+            <h2 class="font-md">{{ profile()?.display_name || 'My account' }}</h2>
+            <p class="text-muted mb-0">{{ user.email }}</p>
+
+            @if (profile()?.username) {
+              <p class="font-sm">@{{ profile()?.username }}</p>
+            }
+          </div>
         </div>
 
-        <div>
-          <h2 class="h5 mb-1">Mitt konto</h2>
-          <p class="text-muted mb-0">{{ user.email }}</p>
+        @if (!isEditing()) {
+          <div class="mb-4">
+            <h3>About me</h3>
+            <p class="mb-0">{{ profile()?.bio || 'You have not written a presentation yet...' }}</p>
+          </div>
+        } @else {
+          <form (ngSubmit)="saveProfile()">
+            <div class="form-group">
+              <label for="displayName">Display name</label>
+              <input
+                id="displayName"
+                name="displayName"
+                type="text"
+                [(ngModel)]="displayName"
+                maxlength="60"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="username">User name</label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                [(ngModel)]="username"
+                maxlength="30"
+                pattern="[A-Za-z0-9_]+"
+                #usernameInput="ngModel"
+              />
+              @if (usernameInput.invalid && usernameInput.touched) {
+                <small class="text-danger">Only letters,numbers and underscore is allowed.</small>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="bio">About me</label>
+              <textarea id="bio" name="bio" rows="3" maxlength="250" [(ngModel)]="bio"></textarea>
+              <small class="text-muted">Max 250 charachters</small>
+            </div>
+
+            <section class="action-buttons-end">
+              <button
+                type="button"
+                class="button-secondary"
+                [disabled]="isSaving()"
+                (click)="cancelEditing()"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="button-primary"
+                [disabled]="isSaving() || usernameInput.invalid"
+              >
+                {{ isSaving() ? 'Saving...' : 'Save changes' }}
+              </button>
+            </section>
+          </form>
+        }
+
+        <hr class="my-4" />
+        <div class="profile-tabs">
+          <button
+            type="button"
+            class="profile-tab"
+            [class.active]="activeTab() === 'my'"
+            (click)="activeTab.set('my')"
+          >
+            <i class="fa-solid fa-table-cells-large"></i>
+          </button>
+
+          <button
+            type="button"
+            class="profile-tab"
+            [class.active]="activeTab() === 'saved'"
+            (click)="activeTab.set('saved')"
+          >
+            <i class="fa-regular fa-bookmark"></i>
+          </button>
         </div>
+
+        @if (activeTab() === 'my') {
+          <app-my-recipes />
+        } @else {
+          <app-saved-recipes />
+        }
+
+        @if (successMessage()) {
+          <div class="alert alert-success mt-3 mb-0">
+            {{ successMessage() }}
+          </div>
+        }
+
+        @if (errorMessage()) {
+          <div class="alert alert-danger mt-3 mb-0">
+            {{ errorMessage() }}
+          </div>
+        }
       </div>
-
-      <hr />
-
-      <button type="button" class="btn btn-outline-danger w-100" (click)="logOut()">
-        <i class="fa-solid fa-right-from-bracket me-2"></i>
-        Logga ut
-      </button>
-    </div>
+    }
   } @else {
     <div class="card border-0 shadow-sm p-4">
-      <p>Du är inte inloggad.</p>
-
-      <a routerLink="/auth" class="btn btn-primary"> Logga in </a>
+      <p>You are not logged in.</p>
+      <a routerLink="/auth" class="btn btn-primary">Log in</a>
     </div>
   }
 </div>

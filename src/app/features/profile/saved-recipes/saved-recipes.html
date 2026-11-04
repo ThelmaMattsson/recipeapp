@@ -1,1 +1,38 @@
-<p>saved-recipes works!</p>
+<div>
+  @if (isLoading()) {
+    <p>Loading recipes...</p>
+  } @else if (errorMessage()) {
+    <div class="alert alert-danger">{{ errorMessage() }}</div>
+  } @else if (savedRecipes().length === 0) {
+    <div class="text-center py-4">
+      <i class="fa-regular fa-bookmark fa-2x text-muted mb-3"></i>
+      <p>No saved recipes yet.</p>
+    </div>
+  } @else {
+    <div class="row g-3">
+      @for (recipe of savedRecipes(); track recipe.id) {
+        <div class="col-6 col-md-4">
+          <a [routerLink]="['/recipes', recipe.id]" class="text-decoration-none text-reset">
+            <div class="card h-100 border-0 shadow-sm overflow-hidden">
+              @if (recipe.imageUrl) {
+                <img
+                  [src]="recipe.imageUrl"
+                  [alt]="recipe.title"
+                  class="card-img-top"
+                  style="height: 140px; object-fit: cover"
+                />
+              } @else {
+                <div
+                  class="bg-light d-flex align-items-center justify-content-center"
+                  style="height: 140px"
+                >
+                  <i class="fa-solid fa-utensils fa-2x text-muted"></i>
+                </div>
+              }
+            </div>
+          </a>
+        </div>
+      }
+    </div>
+  }
+</div>

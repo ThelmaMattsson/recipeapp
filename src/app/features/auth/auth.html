@@ -50,11 +50,7 @@
             </div>
           }
 
-          <button
-            type="submit"
-            class="btn btn-primary w-100"
-            [disabled]="authForm.invalid || isLoading()"
-          >
+          <button type="submit" class="button-primary" [disabled]="authForm.invalid || isLoading()">
             {{ isLoading() ? 'Vänta...' : isRegisterMode() ? 'Skapa konto' : 'Logga in' }}
           </button>
         </form>
@@ -62,7 +58,7 @@
         <p class="text-center mt-4 mb-0">
           {{ isRegisterMode() ? 'Har du redan ett konto?' : 'Saknar du konto?' }}
 
-          <button type="button" class="btn btn-link p-0" (click)="toggleMode()">
+          <button type="button" class="button-secondary" (click)="toggleMode()">
             {{ isRegisterMode() ? 'Logga in' : 'Skapa konto' }}
           </button>
         </p>

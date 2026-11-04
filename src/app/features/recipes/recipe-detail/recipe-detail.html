@@ -1,6 +1,25 @@
 <section class="recipe-detail">
   @if (recipe(); as recipe) {
     <div class="recipe-container">
+      <div class="action-buttons">
+        <app-breadcrumb></app-breadcrumb>
+        @if (canManageRecipe()) {
+          <app-dropdown-menu>
+            <button
+              class="dropdown-item-button"
+              dropdown-item
+              [routerLink]="['/recipes', recipe.id, 'edit']"
+            >
+              <i class="fa-solid fa-pen"></i>
+              Edit recipe
+            </button>
+            <button class="dropdown-item-button" dropdown-item (click)="deleteRecipe(recipe.id)">
+              <i class="fa-solid fa-trash"></i>
+              Delete recipe
+            </button>
+          </app-dropdown-menu>
+        }
+      </div>
       <div class="recipe-detail__image-wrapper">
         <img class="recipe-detail__image" [src]="recipe.imageUrl" [alt]="recipe.title" />
       </div>
@@ -52,19 +71,17 @@
         <p class="form-error" role="alert">{{ errorMessage() }}</p>
       }
 
-      @if (canManageRecipe()) {
-        <button class="button-primary" [routerLink]="['/recipes', recipe.id, 'edit']">
-          <i class="fa-solid fa-pen"></i>
-          Edit recipe
-        </button>
+      @if (!canManageRecipe()) {
         <button
-          class="button-danger"
           type="button"
-          [disabled]="isDeleting()"
-          (click)="deleteRecipe(recipe.id)"
+          class="button-primary"
+          [class.btn-primary]="!isSaved()"
+          [class.btn-outline-primary]="isSaved()"
+          [disabled]="isSaving()"
+          (click)="toggleSaved()"
         >
-          <i class="fa-solid fa-trash"></i>
-          {{ isDeleting() ? 'Deleting...' : 'Delete recipe' }}
+          <i class="fa-heart me-2" [class.fa-solid]="isSaved()" [class.fa-regular]="!isSaved()"></i>
+          {{ isSaving() ? 'Saving...' : isSaved() ? 'Saved' : 'Save recipe' }}
         </button>
       }
     </div>

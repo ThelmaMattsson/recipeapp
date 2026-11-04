@@ -12,8 +12,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: var(--spacing-md);
+  width: 100%;
   gap: var(--spacing-sm);
+}
+
+.action-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .recipe-detail__image-wrapper {

@@ -3,6 +3,9 @@ import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { RecipeService } from '../../../core/services/recipe';
 import { Recipe } from '../../../core/models/recipe.model';
+import { AuthService } from '../../../core/services/auth';
+import { Breadcrumb } from '../../../shared/components/breadcrumb/breadcrumb';
+import { DropdownMenu } from '../../../shared/components/dropdown-menu/dropdown-menu';
 
 type RecipeFormValue = {
   title: string;
@@ -22,7 +25,7 @@ type RecipeFormValue = {
 @Component({
   selector: 'app-recipe-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Breadcrumb, DropdownMenu],
   templateUrl: './recipe-form.html',
   styleUrl: './recipe-form.scss',
 })
@@ -37,6 +40,7 @@ export class RecipeForm {
   errorMessage = signal('');
   recipeId: string | null = null;
   existingImageUrl: string | undefined;
+  isDeleting = signal(false);
 
   constructor(private fb: FormBuilder) {
     this.recipeForm = this.fb.group({
@@ -58,13 +62,22 @@ export class RecipeForm {
     }
   }
   private recipeService = inject(RecipeService);
+  private authService = inject(AuthService);
 
   private loadRecipe(id: string): void {
-    this.recipeService.getRecipeById(id).subscribe((recipe) => {
+    this.recipeService.getRecipeById(id).subscribe(async (recipe) => {
       if (!recipe) {
         this.router.navigate(['/recipes']);
         return;
       }
+
+      const user = await this.authService.getUser();
+
+      if (!user || recipe.userId !== user.id) {
+        this.router.navigate(['/recipes']);
+        return;
+      }
+
       this.existingImageUrl = recipe.imageUrl;
 
       this.recipeForm.patchValue({
@@ -80,6 +93,7 @@ export class RecipeForm {
       this.loadInstructions(recipe.instructions);
     });
   }
+
   private loadTags(tags: string[]): void {
     this.tags.clear();
 
@@ -194,21 +208,6 @@ export class RecipeForm {
         recipeId = await this.recipeService.createRecipe(recipeData);
       }
 
-      // const recipeId = await this.recipeService.createRecipe({
-      //   title: formValue.title.trim(),
-      //   description: formValue.description?.trim() ?? '',
-      //   cookingTime: Number(formValue.cookingTime) || 0,
-      //   servings: String(formValue.servings ?? ''),
-      //   category: formValue.category ?? '',
-      //   tags: formValue.tags,
-      //   ingredients: formValue.ingredients.map((ingredient) => ({
-      //     name: ingredient.name.trim(),
-      //     amount: ingredient.amount.trim(),
-      //     unit: ingredient.unit.trim(),
-      //   })),
-      //   instructions: formValue.instructions.map((instruction) => instruction.trim()),
-      // });
-
       await this.router.navigate(['/recipes', recipeId]);
     } catch (error: unknown) {
       console.error('Could not save recipe: ', error);
@@ -220,23 +219,6 @@ export class RecipeForm {
       this.isSaving.set(false);
     }
   }
-
-  // submit(): void {
-  //   if (this.recipeForm.invalid) {
-  //     this.recipeForm.markAllAsTouched();
-  //     return;
-  //   }
-
-  //   const recipeData = this.recipeForm.value;
-
-  //   if (this.isEditMode()) {
-  //     console.log('Uppdaterar recept:', this.recipeId, recipeData);
-  //   } else {
-  //     console.log('Skapar recept:', recipeData);
-  //   }
-
-  //   this.router.navigate(['/recipes']);
-  // }
 
   cancel(): void {
     this.router.navigate(['/']);
@@ -264,5 +246,32 @@ export class RecipeForm {
     };
 
     reader.readAsDataURL(file);
+  }
+
+  async deleteRecipe(id: string): Promise<void> {
+    const confirmed = confirm(
+      'Are you sure you want to delete this recipe? You can´t undo this action.',
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.isDeleting.set(true);
+    this.errorMessage.set('');
+
+    try {
+      await this.recipeService.deleteRecipe(id);
+
+      await this.router.navigate(['/recipes']);
+    } catch (error: unknown) {
+      console.error('Could not delete recipe: ', error);
+
+      this.errorMessage.set(
+        error instanceof Error ? error.message : 'Could not delete recipe, try again.',
+      );
+    } finally {
+      this.isDeleting.set(false);
+    }
   }
 }

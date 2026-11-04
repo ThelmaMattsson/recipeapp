@@ -1,4 +1,20 @@
 <div class="recipe-form">
+  <div class="action-buttons">
+    <app-breadcrumb></app-breadcrumb>
+    <app-dropdown-menu>
+      @if (recipeId) {
+        <button
+          class="dropdown-item-button button-plain-danger"
+          dropdown-item
+          (click)="deleteRecipe(recipeId)"
+          [disabled]="isDeleting()"
+        >
+          <i class="fa-solid fa-trash"></i>
+          {{ isDeleting() ? 'Deleting...' : 'Delete recipe' }}
+        </button>
+      }
+    </app-dropdown-menu>
+  </div>
   <div class="recipe-form__header">
     <h1>
       {{ isEditMode() ? 'Edit recipe' : 'New recipe' }}

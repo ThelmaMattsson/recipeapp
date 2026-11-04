@@ -1,17 +1,35 @@
 :root {
   /* Colors */
   --color-primary: #a26769;
-  --color-primary-dark: #7d292e;
-  --color-primary-light: #d5b9b2;
-  --color-secondary: #d5b9b2;
-  --color-background: #ebe1d7;
-  --color-surface: #f4eee8;
+  --color-primary-dark: #1e3b2f;
+  --color-primary-light: #9ba885;
+  --color-secondary: #f7c45e;
+  --color-background: #ebe9e5;
+  --color-surface: #f8f5f1;
   --color-text: #0e0d0d;
   --color-text-muted: #686564;
+  --color-text-danger: #d6524b;
   --color-border: #e5ddd4;
   --color-input-border: #bbbaba;
   --color-success: #537548;
   --color-danger: #d6524b;
+
+  // linear-gradient(to bottom, var(--color-primary-light), var(--color-surface))
+  //d283a0
+  //#f7c45e
+
+  // --color-primary: #a26769;
+  // --color-primary-dark: #7d292e;
+  // --color-primary-light: #d5b9b2;
+  // --color-secondary: #d5b9b2;
+  // --color-background: #ebe1d7;
+  // --color-surface: #f4eee8;
+  // --color-text: #0e0d0d;
+  // --color-text-muted: #686564;
+  // --color-border: #e5ddd4;
+  // --color-input-border: #bbbaba;
+  // --color-success: #537548;
+  // --color-danger: #d6524b;
 
   /* Spacing */
   --spacing-xxs: 2px;
@@ -35,17 +53,41 @@
   /* Typography */
   --font-size-xs: 12px;
   --font-size-sm: 14px;
-  --font-size-base: 16px;
+  --font-size-md: 16px;
   --font-size-lg: 18px;
   --font-size-xl: 24px;
   --font-size-2xl: 32px;
 }
 
+.font-xs {
+  font-size: var(--font-size-xs);
+}
+
+.font-sm {
+  font-size: var(--font-size-sm);
+}
+
+.font-md {
+  font-size: var(--font-size-md);
+}
+
+.font-lg {
+  font-size: var(--font-size-lg);
+}
+
+.font-xl {
+  font-size: var(--font-size-xl);
+}
+
+.font-2xl {
+  font-size: var(--font-size-2xl);
+}
+
 .button-secondary {
   border-radius: var(--radius-lg);
-  background-color: var(--color-secondary);
-  color: #ffffff;
-  border: none;
+  background-color: var(--color-surface);
+  color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-light);
   padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-sm) var(--spacing-sm);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: var(--font-size-sm);
@@ -61,10 +103,61 @@
   font-size: var(--font-size-sm);
 }
 
+.button-danger {
+  border-radius: var(--radius-lg);
+  background-color: #ffffff;
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+  padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-sm) var(--spacing-sm);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: var(--font-size-sm);
+}
+
 .button-remove {
   border: none;
   background-color: transparent;
   color: var(--color-danger);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: var(--font-size-xs);
+}
+
+.button-plain-danger {
+  color: var(--color-text-danger);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: var(--font-size-xs);
+}
+
+.form-group label {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: var(--font-size-xs);
+}
+
+.form-group input,
+.form-group select,
+.form-array-row input,
+.ingredient-row input {
+  width: 100%;
+  border: 0.5px solid var(--color-input-border);
+  border-radius: var(--radius-xl);
+  background: #ffffff;
+  color: var(--color-text);
+  padding: var(--spacing-xs);
+}
+
+input {
+  width: 100%;
+  border: 0.5px solid var(--color-input-border);
+  border-radius: var(--radius-xl);
+  background: #ffffff;
+  color: var(--color-text);
+  padding: var(--spacing-xs);
+  font-family: 'Instrument Sans', sans-serif;
   font-size: var(--font-size-xs);
 }
