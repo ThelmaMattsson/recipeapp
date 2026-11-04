@@ -1,0 +1,8 @@
+<div (click)="toggleDropdown()" class="dropdown-button">
+  <i class="fa-solid fa-ellipsis-vertical"></i>
+</div>
+@if (isDropdownOpen() === true) {
+  <div (click)="closeDropdown()" class="dropdown-box">
+    <ng-content select="[dropdown-item]"></ng-content>
+  </div>
+}
