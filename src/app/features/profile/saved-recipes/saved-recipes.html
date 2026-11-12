@@ -9,24 +9,20 @@
       <p>No saved recipes yet.</p>
     </div>
   } @else {
-    <div class="row g-3">
+    <div class="recipe-card-grid">
       @for (recipe of savedRecipes(); track recipe.id) {
-        <div class="col-6 col-md-4">
+        <div class="recipe-card">
           <a [routerLink]="['/recipes', recipe.id]" class="text-decoration-none text-reset">
-            <div class="card h-100 border-0 shadow-sm overflow-hidden">
+            <div>
               @if (recipe.imageUrl) {
-                <img
-                  [src]="recipe.imageUrl"
-                  [alt]="recipe.title"
-                  class="card-img-top"
-                  style="height: 140px; object-fit: cover"
-                />
+                <div class="recipe-img-wrapper">
+                  <img [src]="recipe.imageUrl" [alt]="recipe.title" class="card-img-top" />
+                  <h3 class="recipe-title">{{ recipe.title }}</h3>
+                </div>
               } @else {
-                <div
-                  class="bg-light d-flex align-items-center justify-content-center"
-                  style="height: 140px"
-                >
-                  <i class="fa-solid fa-utensils fa-2x text-muted"></i>
+                <div class="recipe-img-wrapper">
+                  <div class="placeholder-img"></div>
+                  <h3 class="recipe-title">{{ recipe.title }}</h3>
                 </div>
               }
             </div>
