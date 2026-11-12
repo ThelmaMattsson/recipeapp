@@ -31,6 +31,23 @@ export class ProfileService {
     return data as Profile | null;
   }
 
+  async getProfilesByIds(ids: string[]): Promise<Pick<Profile, 'id' | 'username'>[]> {
+    if (ids.length === 0) {
+      return [];
+    }
+
+    const { data, error } = await this.supabase
+      .from('profiles')
+      .select('id, username')
+      .in('id', ids);
+
+    if (error) {
+      throw error;
+    }
+
+    return data ?? [];
+  }
+
   async updateMyProfile(
     updates: Pick<Profile, 'username' | 'display_name' | 'bio' | 'avatar_url'>,
   ): Promise<void> {

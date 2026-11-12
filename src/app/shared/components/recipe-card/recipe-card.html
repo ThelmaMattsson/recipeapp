@@ -1,16 +1,18 @@
 <article class="recipe-card" [routerLink]="['/recipes', recipe.id]">
-  <div class="recipe-card__image-wrapper">
-    <img
-      class="recipe-card__image"
-      [src]="recipe.imageUrl || 'assets/images/recipe-placeholder.jpg'"
-      [alt]="recipe.title"
-    />
+  <div class="recipe-img-wrapper">
+    @if (recipe.imageUrl) {
+      <img [src]="recipe.imageUrl" [alt]="recipe.title" class="recipe-img" />
+      <h3 class="recipe-title">{{ recipe.title }}</h3>
+    } @else {
+      <div class="placeholder-img"></div>
+      <h3 class="recipe-title">{{ recipe.title }}</h3>
+    }
   </div>
 
   <div class="recipe-card__content">
-    <h2 class="recipe-card__title">
-      {{ recipe.title }}
-    </h2>
+    @if (profile?.username) {
+      <h4 class="recipe-owner">@{{ profile?.username }}</h4>
+    }
 
     <p class="recipe-card__description">
       {{ recipe.description }}

@@ -26,6 +26,18 @@
 .recipe-img-wrapper {
   position: relative;
 }
+.recipe-img-wrapper img,
+.placeholder-img {
+  filter: brightness(0.92);
+}
+
+.recipe-img-wrapper:hover {
+  img,
+  .placeholder-img {
+    filter: brightness(0.8);
+  }
+}
+
 .recipe-title {
   color: #ffffff;
   font-size: var(--font-size-2xl);
@@ -34,6 +46,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+  //   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
   //   text-shadow: 0.5px 0.5px 0.5px rgba(166, 166, 166, 0.5);
 }

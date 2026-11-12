@@ -1,40 +1,67 @@
 .recipe-card {
-  overflow: hidden;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-lg);
-  padding: var(--spacing-md);
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-md);
+  // overflow: hidden;
+  // background: var(--color-surface);
+  // border: 1px solid var(--color-border);
+  // border-radius: var(--radius-sm);
+  // box-shadow: var(--shadow-lg);
+  // padding: var(--spacing-md);
+  // gap: var(--spacing-sm);
+  // margin-bottom: var(--spacing-md);
 
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  // display: grid;
+  // grid-template-columns: 1fr 1fr;
 
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  // transition:
+  //   transform 0.2s ease,
+  //   box-shadow 0.2s ease;
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-  }
+  // &:hover {
+  //   transform: translateY(-2px);
+  //   box-shadow: var(--shadow-md);
+  // }
 }
 
 // Image
 // ----------------------------------------
+.placeholder-img {
+  background-color: var(--color-primary-super-light);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
 
-.recipe-card__image-wrapper {
+.recipe-img-wrapper {
   position: relative;
   aspect-ratio: 1 / 1;
   overflow: hidden;
 }
 
-.recipe-card__image {
+.recipe-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.recipe-img-wrapper img,
+.placeholder-img {
+  filter: brightness(0.92);
+}
+
+.recipe-img-wrapper:hover {
+  img,
+  .placeholder-img {
+    filter: brightness(0.8);
+  }
+}
+
+.recipe-title {
+  color: #ffffff;
+  font-size: var(--font-size-2xl);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 // Favorite button
@@ -79,9 +106,6 @@
 // Content
 // ----------------------------------------
 
-.recipe-card__content {
-}
-
 .recipe-card__category {
   margin-bottom: var(--spacing-xs);
 
@@ -106,6 +130,13 @@
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
   line-height: 1.6;
+}
+
+.recipe-owner {
+  margin: 0 0 var(--spacing-sm);
+  font-weight: 500;
+  font-size: var(--font-size-xs);
+  font-family: 'Instrument Sans', sans-serif;
 }
 
 // Meta

@@ -1,12 +1,10 @@
 .profile-container {
   background-color: var(--color-background);
   color: var(--color-text);
-  padding: var(--spacing-md);
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap: var(--spacing-sm);
 }
 
 .action-buttons {
@@ -14,6 +12,7 @@
   display: flex;
   justify-content: flex-end;
   position: relative;
+  margin-bottom: var(--spacing-sm);
 }
 
 .username-display {
@@ -49,15 +48,24 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  margin-left: var(--spacing-sm);
+}
+
+.bio {
+  font-size: var(--font-size-sm);
+  padding: 0;
+  margin: 0 var(--spacing-sm) 0 var(--spacing-sm);
 }
 
 .action-button {
   justify-self: flex-end;
+  margin-right: var(--spacing-sm);
 }
 .profile-tabs {
   display: flex;
   width: 100%;
   border-bottom: 1px solid #e5e5e5;
+  margin-bottom: var(--spacing-xs);
 }
 
 .profile-tab {

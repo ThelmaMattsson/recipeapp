@@ -2,9 +2,16 @@
   <div class="container">
     <header class="home__header"></header>
 
+    @if (errorMessage()) {
+      <p role="alert">{{ errorMessage() }}</p>
+    }
+
     <div class="home__recipes">
       @for (recipe of recipes(); track recipe.id) {
-        <app-recipe-card [recipe]="recipe" />
+        <app-recipe-card
+          [recipe]="recipe"
+          [profile]="recipe.userId ? profiles()[recipe.userId] ?? null : null"
+        />
       }
     </div>
   </div>
