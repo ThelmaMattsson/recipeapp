@@ -1,5 +1,5 @@
 .profile-container {
-  background-color: var(--color-surface);
+  background-color: var(--color-background);
   color: var(--color-text);
   padding: var(--spacing-md);
   display: flex;
@@ -12,7 +12,8 @@
 .action-buttons {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  position: relative;
 }
 
 .username-display {
@@ -20,6 +21,28 @@
   font-weight: 600;
   margin: 0px;
   font-family: 'Instrument Sans', sans-serif;
+  align-self: center;
+  justify-self: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.email {
+  font-size: var(--font-size-xs);
+  margin-bottom: var(--spacing-sm);
+  font-family: 'Instrument Sans', sans-serif;
+}
+
+.display-name {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  margin-bottom: 0px;
+  align-self: center;
+  justify-self: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .profile-metadata {
@@ -29,13 +52,12 @@
 }
 
 .action-button {
-  align-self: flex-end;
+  justify-self: flex-end;
 }
 .profile-tabs {
   display: flex;
   width: 100%;
   border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 1rem;
 }
 
 .profile-tab {
@@ -45,6 +67,10 @@
   border: none;
   border-bottom: 2px solid transparent;
   font-weight: 500;
+
+  i {
+    color: var(--color-text);
+  }
 }
 
 .profile-tab.active {

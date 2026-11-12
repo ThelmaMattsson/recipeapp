@@ -34,21 +34,16 @@
           </div>
 
           <div>
-            <h2 class="font-md">{{ profile()?.display_name || 'My account' }}</h2>
-            <p class="text-muted mb-0">{{ user.email }}</p>
-
-            @if (profile()?.username) {
-              <p class="font-sm">@{{ profile()?.username }}</p>
-            }
+            <h2 class="display-name">{{ profile()?.display_name || 'My account' }}</h2>
           </div>
         </div>
 
         @if (!isEditing()) {
-          <div class="mb-4">
-            <h3>About me</h3>
+          <div class="bio-container">
             <p class="mb-0">{{ profile()?.bio || 'You have not written a presentation yet...' }}</p>
           </div>
         } @else {
+          <p class="email">Email: {{ user.email }}</p>
           <form (ngSubmit)="saveProfile()">
             <div class="form-group">
               <label for="displayName">Display name</label>
@@ -103,7 +98,6 @@
           </form>
         }
 
-        <hr class="my-4" />
         <div class="profile-tabs">
           <button
             type="button"
